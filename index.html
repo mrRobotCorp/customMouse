@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customMouse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script>
+        // 로드 이벤트 - 모든 태그, 이미지 등이 로드되면 실행
+        window.onload = function () {
+            const cursor = document.querySelector(".cursor");
+            const follower = document.querySelector(".cursor_follower");
+            var navLink = document.querySelectorAll(".gnb li");
+
+            navLink.forEach(function (menu) {
+                menu.addEventListener("mouseover", function () {
+                    console.log("over");
+                    cursor.classList.add("link_hover");
+                });
+                menu.addEventListener("mouseleave", function () {
+                    cursor.classList.remove("link_hover");
+                });
+            });
+
+            function myCursor(e) {
+                cursor.style.top = e.pageY + "px";
+                cursor.style.left = e.pageX + "px";
+            }
+
+            function Trailer(e) {
+                document.querySelector(".pageX").innerText = e.pageX;
+                document.querySelector(".pageY").innerText = e.pageY;
+
+                gsap.to(follower, { duration: 0.8, left: e.pageX - 15, top: e.pageY - 15 });
+
+                document.querySelectorAll("h1").forEach(e => {
+                    // console.log(e);
+                    e.addEventListener("mouseover", () => {
+                        cursor.classList.add("show");
+                        follower.classList.add("show");
+                    });
+                    e.addEventListener("mouseout", () => {
+                        cursor.classList.remove("show");
+                        follower.classList.remove("show");
+                    });
+                });
+            }
+
+            // myCursor();
+
+            // 마우스가 움직일 때마다 감지 (즉시실행 함수)
+            window.addEventListener("mousemove", myCursor);
+            window.addEventListener("mousemove", Trailer);
+        }
+    </script>
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        li,
+        ol {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* border까지 박스 사이즈에 포함 */
+        }
+
+        .blind {
+            display: none;
+        }
+
+        @font-face {
+            font-family: notoB;
+            src: url(source/NotoSansKR-Black.otf);
+        }
+
+        @font-face {
+            font-family: notoR;
+            src: url(source/NotoSansKR-Regular.otf);
+        }
+
+        body {
+            background: url(source/colorful.jpg) no-repeat;
+            font-family: notoR;
+            background-size: cover;
+            overflow: hidden;
+            text-align: center;
+            cursor: none;
+            user-select: none;
+        }
+        header object {
+            width: 100%;
+            z-index: -20;
+        }
+
+        #logo {
+            font-family: notoB;
+            margin-left: 30px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .gnb {
+            display: flex;
+        }
+
+        .gnb li {
+            margin: 0 30px;
+            list-style: none;
+            padding: 0 20px;
+        }
+        #profile, #placeTxt {
+            margin-left: 30px;
+        }
+        #profile img {
+            position: relative;
+            z-index: -3;
+            width: 280px;
+            margin-top: 100px;
+            margin-bottom: 10px;
+            border-radius: 50px;
+        }
+        p {
+            display: inline-block;
+            margin: 15px 10px;
+        }
+        .btn {
+            border: 2px solid #fff;
+            border-radius: 14px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-family: notoB;
+        }
+        .txtList li {
+            list-style: none;
+            font-size: 13px;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #222;
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            right: 0;
+            transform: translate(-50%, -50%);
+            transform-origin: 100% 100%;
+            transition: transform 0.3s ease;
+            transition-property: background, transform;
+            backdrop-filter: blur(3px);
+        }
+
+        .cursor_follower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgb(255, 255, 139);
+            z-index: -2;
+            opacity: .4;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+            transition: transform 0.6s ease-in-out, opacity 0.2s ease-in-out;
+        }
+
+        .link_hover {
+            transform: scale(3);
+            border: none;
+            background-color: #ff4d00;
+            opacity: .4;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor_follower"></div>
+    <header>
+        <nav>
+            <h1 id="logo"><a href="#">Week5</a></h1>
+            <ul class="gnb">
+                <li><a href="#">profile</a></li>
+                <li><a href="#">time</a></li>
+                <li><a href="#">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="profile">
+        <img src="source/character.jpg" alt="cha">
+        <h2>YoonA_Kim</h2>
+        <p><a class="btn git" href="https://github.com/mrRobotCorp" target="_blank">@mrRobotCorp</a></p>
+        <p><a class="btn mail" href="mailto:mrrobot@kaywon.ac.kr">MRROBOT@</a></p>
+    </section>
+
+    <section id="placeTxt">
+        <h2 class="blind">page place</h2>
+        <div>
+            <ul class="txtList">
+                <li>pageX : <span class="pageX">0</span>px</li>
+                <li>pageY : <span class="pageY">0</span>px</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <address></address>
+    </footer>
+</body>
+
+</html>
