@@ -72,15 +72,13 @@ nav {
 }
 
 .gnb a {
-    color: rgba(255, 255, 255, 0.747);
     padding: 8px 12px;
     border-radius: 13px;
 }
 
 .gnb a:hover {
-    color: #fff;
     transition: all .5s;
-    background-color: rgba(255, 255, 255, 0.105);
+    background-color: rgba(255, 255, 255, 0.158);
     box-shadow: 0 3px 10px rgba(37, 37, 37, 0.461);
 }
 
